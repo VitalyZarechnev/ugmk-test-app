@@ -1,0 +1,15 @@
+.wrapper {
+	display: flex;
+	width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+	border: 2px solid #333;
+    border-radius: 10px;
+    box-sizing: border-box;
+	padding: 10px;
+	gap: 10px;
+}
+
+.form {
+	width: 160px;
+}
