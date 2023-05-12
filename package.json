@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "dockerize": "docker build -t ugmk_test_app .",
-    "start-container": "docker container run -it -p 3000:3000 --rm ugmk_test_app"
+    "start-container": "docker container run -it -p 3000:3000 --name ugmk_test_app --rm ugmk_test_app"
   },
   "dependencies": {
     "@emotion/react": "11.10.8",
