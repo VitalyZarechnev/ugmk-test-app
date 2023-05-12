@@ -15,7 +15,5 @@ export const getProductsChartData = (data: ProductModel[]): IProductsChartData =
 		chartData[item.factory_id][getMonth(item.date)] += (item.product1 + item.product2 + item.product3);
 	});
 	
-	const formatedChartData = mapValues(chartData, factoryValue => factoryValue.map(product => formatWeight(product)));
-
-	return formatedChartData;
+	return mapValues(chartData, factoryValue => factoryValue.map(product => formatWeight(product)));
 };
