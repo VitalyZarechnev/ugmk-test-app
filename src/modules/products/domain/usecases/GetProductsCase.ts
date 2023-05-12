@@ -4,7 +4,7 @@ import { IProductsRepository } from "@/modules/products/domain/IProductsReposito
 export class GetProductsCase {
 	constructor(private repository: IProductsRepository) {}
 
-	async execute(productType?: ProductType) {
+	async execute(productType: ProductType) {
 		return this.repository.getProducts(productType);
 	}
 }

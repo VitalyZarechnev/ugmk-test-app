@@ -13,9 +13,7 @@ export class ProductsDataSourceImpl implements IProductsDataSource {
 			return this.storage.data;
 		}
 
-		let response = {} as Response;
-
-		response = await fetch('http://localhost:3001/products');
+		const response = await fetch('http://localhost:3001/products');
 
 		let products: TProduct[] = [];
 
@@ -23,16 +21,15 @@ export class ProductsDataSourceImpl implements IProductsDataSource {
 			products = await response.json();
 		}
 
-		const clearProducts = this.clearEmtyDates(products);
+		const clearProducts = this.clearEmptyDates(products);
 
 		this.storage.set(clearProducts);
 		return clearProducts;
 	}
 
-	private clearEmtyDates(products: TProduct[]) {
+	private clearEmptyDates(products: TProduct[]) {
 		const filterDate = (date?: TProduct['date']): date is string => !!date;
-		const filtredProducts = products.filter((product) => filterDate(product.date)) || [];
-		return filtredProducts;
+		return products.filter((product) => filterDate(product.date)) || [];
 	}
 
 	async getProducts(type: ProductType): Promise<TProduct[]> {
@@ -41,7 +38,7 @@ export class ProductsDataSourceImpl implements IProductsDataSource {
 			return allProducts;
 		}
 
-		const filtredProducts = allProducts.map((product) => ({
+		return allProducts.map((product) => ({
 			id: product.id,
 			date: product.date,
 			factory_id: product.factory_id,
@@ -49,8 +46,6 @@ export class ProductsDataSourceImpl implements IProductsDataSource {
 			product2: type === ProductType.PRODUCT_2 ? product.product2 : 0,
 			product3: type === ProductType.PRODUCT_3 ? product.product3 : 0,
 		}))
-
-		return filtredProducts;
 	}
 
 	async getDetails(factoryId: number, monthId: number): Promise<TProduct[]> {
@@ -68,10 +63,8 @@ export class ProductsDataSourceImpl implements IProductsDataSource {
 			throw new ValidationError('Фабрика не найдена, попробуйте другую');
 		}
 
-		const product = products?.filter(product => {
+		return products.filter(product => {
 			return getMonth(product.date) === (monthId - 1) && product.factory_id === factoryId;
-		}) || [];
-
-		return product;
+		}) || []; 
 	}
 }
