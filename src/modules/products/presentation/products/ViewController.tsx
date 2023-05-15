@@ -4,7 +4,6 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { useErrorBoundary } from 'react-error-boundary';
 
 import { ProductType } from '@/modules/products/types/products';
-import EmptyBox from '@/components/empty/EmptyBox.tsx';
 import View from './view/ProductsView.tsx';
 import { ProductsViewModel } from './viewModel';
 import { getProductsChartData } from './helper.ts';
@@ -34,15 +33,13 @@ const ViewController: FC<Props> = ({ viewModel }) => {
 
 	return (
 		<>
-			{viewModel.products.length ?
-				<View
-					chartData={chartData}
-					isLoading={viewModel.isLoading}
-					productType={viewModel.productType}
-					changeFilter={handleChangeFilter}
-				/> :
-				<EmptyBox />
-			}
+			<View
+				chartData={chartData}
+				isEmpty={!viewModel.products.length}
+				isLoading={viewModel.isLoading}
+				productType={viewModel.productType}
+				changeFilter={handleChangeFilter}
+			/>
 		</>);
 };
 

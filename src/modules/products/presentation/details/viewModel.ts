@@ -5,7 +5,7 @@ import { GetDetailsCase } from '@/modules/products/domain/usecases/GetDetailsCas
 
 export class DetailsViewModel {
 	private _details: ProductModel[] = [];
-	private _isLoading = false;
+	private _isLoading = true;
 
 	constructor(private usecase: GetDetailsCase) {
 		makeAutoObservable(this);

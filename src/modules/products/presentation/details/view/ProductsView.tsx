@@ -1,21 +1,33 @@
 import { FC } from 'react';
 
 import { IDetailsChartData } from '@/modules/products/presentation/details/interfaces/IDetailsChartData';
-import DetailsChart from './components/DetailsChart';
 import Spinner from '@/components/spinner/Spinner';
+import EmptyBox from '@/components/empty/EmptyBox.tsx';
+import DetailsChart from './components/DetailsChart';
 import styles from './ProductsView.module.scss';
 
 interface Props {
 	isLoading: boolean;
+	isEmpty: boolean;
 	chartData: IDetailsChartData;
 }
 
-const ListView: FC<Props> = ({ chartData, isLoading }) => {
+const ProductsView: FC<Props> = ({ chartData, isEmpty, isLoading }) => {
+	const renderComponent = () => {
+		if (isLoading) {
+			return <Spinner />
+		} else if (isEmpty) {
+			return <EmptyBox />
+		} else {
+			return <DetailsChart chartData={chartData} />
+		}
+	}
+	
 	return (
 		<div className={styles.wrapper}>
-			{isLoading ? <Spinner /> : <DetailsChart chartData={chartData} />}
+			{renderComponent()}
 		</div>
 	);
 };
 
-export default ListView;
+export default ProductsView;

@@ -7,7 +7,7 @@ import { ProductLocalStorageService } from '@/services/localstorage/Service';
 
 export class ProductsViewModel {
 	private _products: ProductModel[] = [];
-	private _isLoading = false;
+	private _isLoading = true;
 	private _productType = ProductType.ALL;
 
 	constructor(private usecase: GetProductsCase, private storage: ProductLocalStorageService) {
@@ -35,6 +35,7 @@ export class ProductsViewModel {
 
 		try {
 			const response = await this.usecase.execute(this._productType);
+
 			runInAction(() => {
 				this._products = response;
 			});

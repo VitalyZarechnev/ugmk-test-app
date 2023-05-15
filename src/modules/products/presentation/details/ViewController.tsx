@@ -6,7 +6,6 @@ import { useErrorBoundary } from 'react-error-boundary';
 import View from './view/ProductsView.tsx';
 import { DetailsViewModel } from './viewModel';
 import { getDetailsChartData } from './helper.ts';
-import EmptyBox from '@/components/empty/EmptyBox.tsx';
 
 interface Props {
 	viewModel: DetailsViewModel;
@@ -31,16 +30,7 @@ const ViewController: FC<Props> = ({ viewModel }) => {
 
 	const chartData = useMemo(() => getDetailsChartData(viewModel.details, factoryId, monthId), [viewModel.details, factoryId, monthId])
 
-	return (
-		<>
-			{viewModel.details.length ?
-				<View
-					chartData={chartData}
-					isLoading={viewModel.isLoading}
-				/> :
-				<EmptyBox />
-			}
-		</>);
+	return (<View chartData={chartData} isLoading={viewModel.isLoading} isEmpty={!viewModel.details.length} />);
 };
 
 export default observer(ViewController);
