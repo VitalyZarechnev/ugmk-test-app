@@ -1,5 +1,4 @@
 import { ProductsDataSourceImpl } from '@/modules/products/data/ProductsDataSourceImpl';
-import { ApiError } from '@/utils/errors/ApiError';
 import { ApplicationError } from '@/utils/errors/ApplicationError';
 import { ValidationError } from '@/utils/errors/ValidationError';
 import { ProductType } from '@/modules/products/types/products';
@@ -18,10 +17,6 @@ export class ProductsRepositoryImpl implements IProductsRepository {
 
 			return [];
 		} catch (e) {
-			if (e instanceof ApiError) {
-				throw new ApiError();
-			}
-
 			if (e instanceof ValidationError) {
 				throw new ValidationError(e.message);
 			}
@@ -40,10 +35,6 @@ export class ProductsRepositoryImpl implements IProductsRepository {
 
 			return [];
 		} catch (e) {
-			if (e instanceof ApiError) {
-				throw new ApiError();
-			}
-
 			if (e instanceof ValidationError) {
 				throw new ValidationError(e.message);
 			}
